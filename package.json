@@ -1,0 +1,19 @@
+{
+  "name": "vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/assets/css/style.css -o ./dist/css/style.css --watch",
+    "build": "npx tailwindcss -i ./src/assets/css/style.css -o ./dist/css/style.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "daisyui": "^2.51.6"
+  }
+}

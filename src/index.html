@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../dist/css/style.css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Vue Learning</title>
+  </head>
+  <body class="body">
+    <div id="app" class="card w-[800px] h-[400px] bg-base-100 shadow-xl">
+      <div class="card-body">
+        <div class="card-title block relative h-full">
+            <div class="tabs">
+                <a class="tab tab-bordered" :class="{ 'tab-active':activePage==='add' }" @click="changePage('add')">اضافه کردن</a> 
+                <a class="tab tab-bordered" :class="{ 'tab-active':activePage==='search' }"  @click="changePage('search')">جستجو</a> 
+                <a class="tab tab-bordered" :class="{ 'tab-active':activePage==='list' }" @click="changePage('list')">لیست مخاطبین</a>
+            </div>
+
+            <form class="h-full w-full" v-show="activePage==='add'" @submit.prevent="addUserHandler">
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <input type="text" required name="name" v-model="data.name" placeholder="نام" class="input input-bordered input-md  w-full" />
+    
+                    <input type="text" required name="lastname" v-model="data.lastname" placeholder="نام خانوادگی" class="input input-bordered input-md w-full" />
+    
+                    <input type="text" required name="phone" v-model="data.phone" placeholder="شماره تلفن" class="input input-bordered w-full input-md" />
+    
+                    <input type="email" required name="email" v-model="data.email" placeholder="ایمیل" class="input input-bordered w-full input-md" />
+                </div>
+    
+                <button class="btn btn-success mt-auto w-full absolute bottom-0" type="submit">ثبت کاربر</button>
+            </form>
+
+            <form class="h-full w-full" v-show="activePage==='search'">
+              <div class="grid grid-cols-1 gap-4 mt-6">
+                <input type="text" placeholder="جستجو کنید ..." class="input input-bordered w-full input-md" v-model="search"/>
+              </div>
+
+              <div class="overflow-x-auto h-[220px] overflow-y-scroll mt-4">
+                <table class="table table-compact w-full">
+                  <thead v-if="contacts.length > 0 && filterContactHandler">
+                    <tr>
+                      <th>نام</th> 
+                      <th>نام خانوادگی</th> 
+                      <th>شماره تلفن</th> 
+                      <th>ایمیل</th> 
+                    </tr>
+                  </thead> 
+                  <tbody>
+                    <div class="alert alert-error shadow-lg" v-if="contacts.length == 0">
+                      <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>کاربری موجود نیست !</span>
+                      </div>
+                    </div>
+                    <tr v-for="contact in filterContactHandler" v-if="contacts.length > 0 && filterContactHandler">
+                      <td>{{contact.name}}</td> 
+                      <td>{{contact.lastname}}</td> 
+                      <td>{{contact.phone}}</td> 
+                      <td>{{contact.email}}</td> 
+                    </tr>
+                  </tbody> 
+                </table>
+              </div>
+            </form>
+
+            <form class="h-full w-full" v-show="activePage==='list'">
+              <div class="overflow-x-auto h-[290px] overflow-y-scroll mt-4">
+                <table class="table table-compact w-full">
+                  <thead v-if="contacts.length > 0">
+                    <tr>
+                      <th>نام</th> 
+                      <th>نام خانوادگی</th> 
+                      <th>شماره تلفن</th> 
+                      <th>ایمیل</th> 
+                    </tr>
+                  </thead> 
+                  <tbody> 
+                    <div class="alert alert-error shadow-lg" v-if="contacts.length == 0">
+                      <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>کاربری موجود نیست !</span>
+                      </div>
+                    </div>
+                    <tr v-for="contact in contacts" v-if="contacts.length > 0">
+                      <td>{{contact.name}}</td> 
+                      <td>{{contact.lastname}}</td> 
+                      <td>{{contact.phone}}</td> 
+                      <td>{{contact.email}}</td> 
+                    </tr>
+                  </tbody> 
+                </table>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
