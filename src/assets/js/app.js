@@ -3,7 +3,9 @@ Vue.createApp({
         return {
             activePage: 'add',
             data: {},
-            contacts: [],
+            contacts: [
+                {name: 'John', lastname: 'adamson', email: 'john@gmail.com', phone: '091000000'},
+            ],
             search: ''
         }
     },
@@ -14,6 +16,9 @@ Vue.createApp({
         addUserHandler() {
             this.contacts.push(this.data);
             this.data = {};
+        },
+        deleteUserHandler(phone) {
+            this.contacts = this.contacts.filter(contact => contact.phone !== phone);
         }
     },
     computed: {
